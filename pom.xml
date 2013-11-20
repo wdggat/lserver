@@ -52,11 +52,6 @@
       <version>4.8.1</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-	<groupId>commons-lang</groupId>
-	<artifactId>commons-lang</artifactId>
-	<version>2.4</version>
-</dependency>
 <dependency>
 	<groupId>log4j</groupId>
 	<artifactId>log4j</artifactId>
@@ -82,10 +77,28 @@
 			<artifactId>commons-cli</artifactId>
 			<version>1.2</version>
 		</dependency>
-  </dependencies>
+
+  <dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.1.23</version>
+</dependency>
   <dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.4</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.4</version>
+			<scope>provided</scope>
+		</dependency>
+       </dependencies>       
+            
 </project>
