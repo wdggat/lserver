@@ -1,7 +1,28 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--<?xml version="1.0" encoding="GB2312"?>-->
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+version="2.4">
+<display-name>Servlet</display-name>
+<description>
+LogServerServlet
+</description>
+<servlet>
+<init-param>
+	<param-name>PATH</param-name>
+	<param-value>./logs/</param-value>  
+  </init-param> 
+  <init-param>  
+	<param-name>FILENAME</param-name>
+	<param-value>RAWLOG</param-value> 
+</init-param>
 
-<web-app>
-  <display-name>Archetype Created Web Application</display-name>
+<servlet-name>LogServer</servlet-name>
+<servlet-class>com.liu.servlets.LogServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>LogServer</servlet-name>
+<url-pattern>/receiver</url-pattern>
+</servlet-mapping>
 </web-app>
