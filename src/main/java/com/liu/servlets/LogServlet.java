@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 
+import com.liu.repost.Repost;
+
 public class LogServlet extends HttpServlet {
 	/**
 	 * 
@@ -32,6 +34,7 @@ public class LogServlet extends HttpServlet {
 	private static String path = null;
 	private static String fileNamePrefix = null;
 	private static AtomicLong count;
+	private static Repost repost;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -39,6 +42,7 @@ public class LogServlet extends HttpServlet {
 		path = config.getInitParameter("PATH");
 		fileNamePrefix = config.getInitParameter("FILENAME");
 		count = new AtomicLong(0);
+		repost = Repost.getInstance();
 	}
 	
 	@Override
@@ -48,7 +52,6 @@ public class LogServlet extends HttpServlet {
 	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-//		String normedLog = Parser.normLog(request.)
 		StringBuffer returnStr = new StringBuffer();
 		DataInputStream reader = null;
 		String ip = "";
@@ -84,17 +87,16 @@ public class LogServlet extends HttpServlet {
 			byte[] contentsOnly = Arrays.copyOf(bb.array(), countSum);
 			byte[] encoded = Base64.encodeBase64(contentsOnly);
 			String result = new String(encoded, "US-ASCII");
-			returnStr.append(result + "\t");
-			returnStr.append(os);
-			returnStr.append("\n");
-			logFile.write(returnStr.toString());
+			result = Parser.normLog(result);
+			result = Parser.completeLog(result, ip, os);
+			logFile.write(result);
+			repost.push(result);
 		} catch (Throwable e) {
 			log.error(ip + ":" + returnStr.toString() + " can not write to file ", e);
 		} finally {
 			if (reader != null) {
 				reader.close();
 			}
-
 		}
 	}
 	
